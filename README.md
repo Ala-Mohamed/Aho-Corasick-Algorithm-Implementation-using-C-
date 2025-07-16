@@ -1,20 +1,56 @@
 # Aho-Corasick-Algorithm-Implementation-using-C++
 
-Alfred V. Aho and Margaret J. Corasick created the Aho-Corasick algorithm, a string-searching method, in the field of computer science in 1975. This type of algorithm looks for strings inside an input text that belong to a finite set of patterns. It is one of the most efficient algorithms in pattern matching as it can take multiple patterns and search for them in a given sequence in a linear time complexity O(n+m+z) where n is the total length of all patterns, m is the length of the text in which the patterns will be searched, z is the number of occurrences of each pattern.
-Usage
-It is used in pattern-matching problems such as motif finding, plagiarism checking, and auto-complete search. Our code is implemented in C++ to solve DNA motif-matching problems and you need to include the following libraries to run the code:
+This repository contains an implementation of the Aho-Corasick string-searching algorithm in C++. Developed by Alfred V. Aho and Margaret J. Corasick in 1975, this algorithm efficiently searches for multiple patterns simultaneously within a given text. It is widely used in various applications requiring pattern matching, such as motif finding, plagiarism detection, spam filtering, and auto-complete features.
+
+**Overview**
+The Aho-Corasick algorithm constructs a finite automaton (a trie with failure links) that allows searching for all patterns in linear time O(n + m + z):
+-n: Total length of all patterns
+-m: Length of the input text
+-z: Total number of pattern occurrences
+This implementation is particularly tailored for solving DNA motif-matching problems, making it highly suitable for bioinformatics applications.
+
+**Features**
+1-Trie Construction: Insert multiple patterns or motifs efficiently.
+2-Prefix Existence Check: Verify if a prefix already exists in the trie.
+3-Pattern Search: Check if a motif exists in the trie.
+4-Failure Function: Build failure links for efficient pattern matching.
+5-Pattern Occurrence Search: Find all occurrences of patterns and record positions.
+
+**Usage**
+The main code demonstrates how to use the Trie class:
+-Insert patterns such as "ACC", "ATC", "CAT", and "GCG".
+-Build the failure links.
+-Use search functions to verify the existence of patterns and locate their positions.
+
+**Example**
+#include "Trie.h"
+
+int main() {
+    Trie trie;
+
+    // Insert patterns
+    trie.insert("ACC");
+    trie.insert("ATC");
+    trie.insert("CAT");
+    trie.insert("GCG");
+
+    // Build failure links
+    trie.buildFailureLinks();
+
+    // Search for patterns in a text
+    std::string text = "GATCCG";
+    std::vector<int> occurrences = trie.search(text);
+
+    if (trie.patternExists("ACC")) {
+        std::cout << "Pattern 'ACC' found at position(s): " << occurrences.size() << std::endl;
+    }
+
+    return 0;
+}
+
+**Libraries**
+Ensure you include the following standard C++ headers when compiling:
+<vector>
+<string>
+<queue>
 <iostream>
-<queue> 
-<vector> 
-Features  : 
-This code was implemented based on tries data structure that gives efficient time and space complexity
-. For tries implementation, it has the following features: 
-Insert: To insert your patterns or motifs.  
-PrefixExsist: to check if the prefix already exists. 
-seqExsist: to check if the motif is found on the trie or not.
- To search for a sequence: 
-Failure function: built the failure links of the tries. 
-Search: provide a vector for the occurrence of a specific sequence on the trie.
-
-The main code shows how to use the functions of the code starting with using trie class to insert these sequences  ("ACC", "ATC", "CAT", and "GCG") then building the failure function and using the different functions mentioned above to see if the sequence already in and its position. 
-
